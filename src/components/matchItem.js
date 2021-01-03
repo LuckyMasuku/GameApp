@@ -10,12 +10,12 @@ export class MatchItem extends React.Component {
                
 
                 <Card>
-                    <Card.Header>{this.props.match.Title}</Card.Header>
+                    <Card.Header>{this.props.match.Player}</Card.Header>
                     <Card.Body>
                         <blockquote className="blockquote mb-0">
-                        <img src={this.props.match.Poster} width="200" height="200" ></img>
+                        <img src={this.props.match.Team} width="200" height="200" ></img>
                             <footer className="blockquote-footer">
-                            {this.props.match.Year}
+                            {this.props.match.Venue}
                             </footer>
                         </blockquote>
                     </Card.Body>
