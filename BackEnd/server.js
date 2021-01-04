@@ -91,6 +91,14 @@ app.get('/api/matches/:id',(req,res)=>{
           res.json(data);
     })
 })
+//Delete methord 
+app.delete('/api/matches/:id',(req, res)=>{
+    console.log("Delete Match: "+req.params.id);
+    //Allow to match the id and delete and send back data once deleted
+    MatchModel.findByIdAndDelete(req.params.id,(err,data)=>{
+        res.send(data);
+    })
+})
 
 app.post('/api/matches', (req, res) => {
     console.log('Matches won!');
