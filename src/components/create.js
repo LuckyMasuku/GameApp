@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 export class Create extends React.Component {
 
 
@@ -39,6 +39,21 @@ export class Create extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         alert("Match: " + this.state.Player + " " + this.state.Venue + " " + this.state.Team);
+
+        //send data from saver
+        const newMatch = {
+            player: this.state.Player,
+            venue: this.state.Venue,
+            team: this.state.Team
+        }
+        axios.post('http://localhost:4000/api/matches',newMatch)
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err);
+
+        });
     }
 
     render() {

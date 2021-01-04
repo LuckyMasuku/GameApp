@@ -8,9 +8,9 @@ export class Read extends React.Component {
         matches: []
     };
     componentDidMount() {
-        axios.get('https://jsonblob.com/api/jsonblob/520c3b5e-0312-11eb-a6af-cbf00d776032')
+        axios.get('http://localhost:4000/api/matches')
             .then((response) => {
-                this.setState({ matches: response.data.Search })
+                this.setState({ matches: response.data })
             })
             .catch((error)=>{
                console.log(error)
