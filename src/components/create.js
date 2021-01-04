@@ -18,26 +18,26 @@ export class Create extends React.Component {
         }
     }
 
-    onChangePlayer(e) {
+    onChangePlayer(a) {
         this.setState({
-            Player: e.target.value
+            Player: a.target.value
         });
     }
 
-    onChangeVenue(e) {
+    onChangeVenue(a) {
         this.setState({
-            Venue: e.target.value
+            Venue: a.target.value
         });
     }
 
-    onChangeTeam(e){
+    onChangeTeam(a){
         this.setState({
-            Team: e.target.value
+            Team: a.target.value
         });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    onSubmit(a) {
+        a.preventDefault();
         alert("Match: " + this.state.Player + " " + this.state.Venue + " " + this.state.Team);
 
         //send data from saver

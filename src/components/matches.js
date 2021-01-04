@@ -6,7 +6,8 @@ export class Matches extends React.Component{
 
     render(){
         return this.props.matches.map((match)=>{
-            return <MatchItem match={match}></MatchItem>
+            //pass reload from read
+            return <MatchItem match={match} ReloadData={this.props.ReloadData}></MatchItem>
 
         })
                

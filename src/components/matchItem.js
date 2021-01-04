@@ -12,11 +12,15 @@ export class MatchItem extends React.Component {
         this.DeleteMatch = this.DeleteMatch.bind(this);
     }
 //this will allow the delete of the item on the console
-DeleteMatch(){
+DeleteMatch(a){
+    a.preventDefault();
     console.log("Delete: "+this.props.match._id);
 
     axios.delete("http://localhost:4000/api/matches/"+this.props.match._id)
-    .then()
+    .then(()=>{
+        //this will call reloaddata from matches 
+        this.props.ReloadData();
+    })
     .catch();
 }
     render() {
