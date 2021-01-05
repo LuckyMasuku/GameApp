@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 //Class extends from react
-export class Create extends React.Component {
+export class Edit extends React.Component {
 
 //allows the bind to the controls
     constructor() {
@@ -19,6 +19,27 @@ export class Create extends React.Component {
             Team: ''
         }
     }
+
+    //when the application starts this function will pull out the unique id
+    //this is a life cycle hook that gets fired when it becomes fired in the view
+    componentDidMount(){
+        console.log(this.props.match.params.id);
+
+        axios.get('http://localhost:4000/api/matches/'+this.props.match.params.id)
+        //response from the server
+        .then(response=>{
+            this.setState({
+                _id:response.data._id,
+                Player:response.data.player,
+                Venue:response.data.venue,
+                Team:response.data.team
+            })
+        })
+        .catch((error)=>{
+            console.log(error);
+        });
+    }
+
 //when  the value changes update the state
     onChangePlayer(a) {
         this.setState({
@@ -46,20 +67,31 @@ export class Create extends React.Component {
         const newMatch = {
             player: this.state.Player,
             venue: this.state.Venue,
-            team: this.state.Team
+            team: this.state.Team,
+            _id:this.state._id
         }
+       axios.put('http://localhost:4000/api/matches/' +this.state._id, newMatch)
+       .then(res =>{
+           console.log(res.data)
 
-        //local host running on 4000
-        //returns a promise
-        axios.post('http://localhost:4000/api/matches',newMatch)
-        .then((res)=>{
-            console.log(res)
-        })
-        //Unhappy path
-        .catch((err)=>{
-            console.log(err);
+       })
+       .catch((err)=>{
+        console.log(err);
 
-        });
+    });
+
+
+        // //local host running on 4000
+        // //returns a promise
+        // axios.post('http://localhost:4000/api/matches',newMatch)
+        // .then((res)=>{
+        //     console.log(res)
+        // })
+        // //Unhappy path
+        // .catch((err)=>{
+        //     console.log(err);
+
+        // });
     }
 
     render() {
@@ -92,7 +124,7 @@ export class Create extends React.Component {
 
                     <div className="form-group">
                         <input type='submit'
-                            value='Add Match'
+                            value='Edit Match'
                             className='btn btn-primary'></input>
 
                     </div>

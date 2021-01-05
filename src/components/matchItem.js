@@ -2,6 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import{Link} from 'react-router-dom';
 
 export class MatchItem extends React.Component {
 
@@ -40,6 +41,7 @@ DeleteMatch(a){
                         </blockquote>
                     </Card.Body>
                     <Button variant="danger" onClick={this.DeleteMatch}>Delete</Button>
+                    <Link to ={"/edit/"+ this.props.match._id} className="btn btn-primary">Edit</Link>
                 </Card>
             </div>
         );

@@ -5,6 +5,8 @@ const cors = require('cors');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 
+//allow the bodypurser to intercept from the http 
+//allows to use everytime 
 app.use(cors());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -20,10 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //bodyparser application
 app.use(bodyParser.json())
 
+//Connection string to connect to database
 const myConnectionString = ' mongodb+srv://admin:admin@cluster0.f0b07.mongodb.net/matches?retryWrites=true&w=majority'
 mongoose.connect(myConnectionString, { useNewUrlParser: true });
 
-//schema 
+//Schema of the database on what type of database it will be stored
 const Schema = mongoose.Schema;
 //telling the schema what data will be stored
 var matchSchema = new Schema({
@@ -71,7 +74,7 @@ app.get('/api/matches', (req, res) => {
 
     // ]
 
-
+//This will allow interaction with database
     MatchModel.find((err, data) => {
         res.json(data);
     })
@@ -83,7 +86,7 @@ app.get('/api/matches', (req, res) => {
     //});
 })
 
-//get request
+//Get request find the id in the database and use it
 app.get('/api/matches/:id',(req,res)=>{
     console.log(req.params.id);
     //this will return a match if found with that id
@@ -91,7 +94,19 @@ app.get('/api/matches/:id',(req,res)=>{
           res.json(data);
     })
 })
-//Delete methord 
+
+//Put methord
+app.put('/api/matches/:id', (req, res)=>{
+    console.log("Update match: "+req.params.id);
+    console.log(req.body);
+    
+//find the record with an id and update it
+    MatchModel.findByIdAndUpdate(req.params.id,req.body, {new:true},
+        (err,data)=>{
+            res.send(data);
+        })
+})
+//delete function will listen to http request 
 app.delete('/api/matches/:id',(req, res)=>{
     console.log("Delete Match: "+req.params.id);
     //Allow to match the id and delete and send back data once deleted
@@ -106,6 +121,7 @@ app.post('/api/matches', (req, res) => {
     console.log(req.body.venue);
     console.log(req.body.team);
 
+    //Allows interaction with from our database
     MatchModel.create({
         player: req.body.player,
         venue: req.body.venue,
