@@ -4,6 +4,7 @@ const port = 4000
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const path = require('path');
 
 //allow the bodypurser to intercept from the http 
 //allows to use everytime 
@@ -15,6 +16,9 @@ app.use(function (req, res, next) {
         "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -99,7 +103,7 @@ app.get('/api/matches/:id',(req,res)=>{
 app.put('/api/matches/:id', (req, res)=>{
     console.log("Update match: "+req.params.id);
     console.log(req.body);
-    
+
 //find the record with an id and update it
     MatchModel.findByIdAndUpdate(req.params.id,req.body, {new:true},
         (err,data)=>{
@@ -130,6 +134,10 @@ app.post('/api/matches', (req, res) => {
 
     res.send('Item Added');
 
+})
+
+app.get('*', (req,res)=>{
+    res.sendFile(path.join(__dirname+'/../build/index.html'));
 })
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
