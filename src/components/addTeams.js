@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 //Class extends from react
-export class Create extends React.Component {
+export class AddTeams extends React.Component {
 
 //allows the bind to the controls
     constructor() {

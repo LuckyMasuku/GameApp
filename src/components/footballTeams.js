@@ -3,7 +3,7 @@ import { Matches } from './matches';
 import axios from 'axios';
 
 //Class extends from react
-export class Read extends React.Component {
+export class FootballTeams extends React.Component {
 
     constructor(){
         super();
@@ -43,7 +43,7 @@ export class Read extends React.Component {
         //the return will return and display the command
         return (
             <div>
-                <h1> The is my Component.</h1>
+                <h1> Welcome to my football.</h1>
                 <Matches matches={this.state.matches} ReloadData={this.ReloadData}></Matches>
             </div>
         );
